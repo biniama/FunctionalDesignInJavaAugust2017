@@ -9,30 +9,6 @@ import java.util.List;
 /**
  * @author Simon Roberts
  */
-class CarOrderByNameComparator implements Comparator<Car> {
-
-  @Override
-  public int compare(Car o1, Car o2) {
-    return o1.getMake().compareTo(o2.getMake());
-  }
-  
-}
-
-class BlueCarCriterion implements CarCriterion {
-
-  @Override
-  public boolean test(Car c) {
-    return c.getColor().equals(Color.BLUE);
-  }
-}
-
-class MainFrontCarCriterion implements CarCriterion {
-
-  @Override
-  public boolean test(Car c) {
-    return c.getPermits().contains("Main-Front");
-  }
-}
 
 public class CarProcessing {
 
@@ -42,7 +18,7 @@ public class CarProcessing {
     }
   }
 
-  public static List<Car> getBlueCar(List<Car> in, Color color) {
+  public static List<Car> getCarsByColor(List<Car> in, Color color) {
     List<Car> rv = new ArrayList<>();
     for (Car c : in) {
       if (c.getColor().equals(color)) {
@@ -87,10 +63,10 @@ public class CarProcessing {
 
     System.out.println("Blue: ---------------------------");
     // want to create a list of Blue cars...
-    List<Car> blueCars = getBlueCar(lc, Color.BLUE);
+    List<Car> blueCars = getCarsByColor(lc, Color.BLUE);
     showAllCars(blueCars);
     System.out.println("White: ---------------------------");
-    List<Car> whiteCars = getBlueCar(lc, Color.WHITE);
+    List<Car> whiteCars = getCarsByColor(lc, Color.WHITE);
     showAllCars(whiteCars);
 
     // What if we want all cars that park in Main-Front lot?
@@ -100,16 +76,16 @@ public class CarProcessing {
 
     System.out.println("Blue by criterion: ---------------------------");
     // want to create a list of Blue cars...
-    blueCars = getCarByCriterion(lc, new BlueCarCriterion());
+    blueCars = getCarByCriterion(lc, new Car.BlueCarCriterion());
     showAllCars(blueCars);
     
     // What if we want all cars that park in Main-Front lot?
     System.out.println("Front-Main by criterion: ---------------------------");
-    fmCars = getCarByCriterion(lc, new MainFrontCarCriterion());
+    fmCars = getCarByCriterion(lc, new Car.MainFrontCarCriterion());
     showAllCars(fmCars);
 
     System.out.println("sorted----------------------------");
-    lc.sort(new CarOrderByNameComparator());
+    lc.sort(Car.getNameComparator());
     showAllCars(lc);
   }
 }
