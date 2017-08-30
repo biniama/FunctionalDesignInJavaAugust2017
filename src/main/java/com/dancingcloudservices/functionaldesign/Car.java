@@ -54,12 +54,16 @@ public class Car {
     }
   }
 
-  static class BlueCarCriterion implements CarCriterion {
-    @Override
-    public boolean test(Car c) {
-      return c.getColor().equals(Color.BLUE);
-    }
+  public static CarCriterion getBlueCarCriterion()  {
+    return c -> c.getColor().equals(Color.BLUE);
   }
+  
+//  static class BlueCarCriterion implements CarCriterion {
+//    @Override
+//    public boolean test(Car c) {
+//      return c.getColor().equals(Color.BLUE);
+//    }
+//  }
 
   // Unique to single argument behaviors, parentheses are optional
   private static final CarCriterion mainFrontCriterion = c -> c.getPermits().contains("Main-Front");

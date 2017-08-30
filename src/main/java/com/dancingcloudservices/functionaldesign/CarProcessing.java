@@ -76,12 +76,17 @@ public class CarProcessing {
 
     System.out.println("Blue by criterion: ---------------------------");
     // want to create a list of Blue cars...
-    blueCars = getCarByCriterion(lc, new Car.BlueCarCriterion());
+    blueCars = getCarByCriterion(lc, Car.getBlueCarCriterion());
     showAllCars(blueCars);
     
     // What if we want all cars that park in Main-Front lot?
     System.out.println("Front-Main by criterion: ---------------------------");
     fmCars = getCarByCriterion(lc, Car.getMainFrontCriterion());
+    showAllCars(fmCars);
+
+    // What if we want all cars that park in Main-Front lot?
+    System.out.println("Front-Main by criterion: ---------------------------");
+    fmCars = getCarByCriterion(lc, c -> c.getPermits().contains("Main-Rear"));
     showAllCars(fmCars);
 
     System.out.println("sorted----------------------------");
