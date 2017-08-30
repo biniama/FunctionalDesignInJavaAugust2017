@@ -61,11 +61,43 @@ public class Car {
     }
   }
 
-  // static relates to the Car class as a whole, not a single instance
-  static class MainFrontCarCriterion implements CarCriterion {
-    @Override
-    public boolean test(Car c) {
-      return c.getPermits().contains("Main-Front");
-    }
+  // Unique to single argument behaviors, parentheses are optional
+  private static final CarCriterion mainFrontCriterion = c -> c.getPermits().contains("Main-Front");
+
+//  private static final CarCriterion mainFrontCriterion = (c) -> c.getPermits().contains("Main-Front");
+ 
+//  private static final CarCriterion mainFrontCriterion = (c) -> /*{
+//      return */c.getPermits().contains("Main-Front")/*;*/
+//    /*}*/;
+// 
+//  private static final CarCriterion mainFrontCriterion = /*new CarCriterion() {
+//    @Override
+//    public boolean test*/(Car c) -> {
+//      System.out.println("running lambda 1 test");
+//      return c.getPermits().contains("Main-Front");
+//    }
+//  /*}*/;
+// 
+//  // Hey chef, make one of these!
+//  // AKA anonymous inner class
+//  private static final CarCriterion mainFrontCriterion = new CarCriterion() {
+//    @Override
+//    public boolean test(Car c) {
+//      System.out.println("running anonymous test");
+//      return c.getPermits().contains("Main-Front");
+//    }
+//  };
+// 
+//  private static final CarCriterion mainFrontCriterion = new
+//  // static relates to the Car class as a whole, not a single instance
+//  /*static class MainFrontCarCriterion implements*/ CarCriterion() {
+//    @Override
+//    public boolean test(Car c) {
+//      return c.getPermits().contains("Main-Front");
+//    }
+//  } ;
+// 
+  public static CarCriterion getMainFrontCriterion() {
+    return mainFrontCriterion;
   }
 }

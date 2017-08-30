@@ -81,7 +81,7 @@ public class CarProcessing {
     
     // What if we want all cars that park in Main-Front lot?
     System.out.println("Front-Main by criterion: ---------------------------");
-    fmCars = getCarByCriterion(lc, new Car.MainFrontCarCriterion());
+    fmCars = getCarByCriterion(lc, Car.getMainFrontCriterion());
     showAllCars(fmCars);
 
     System.out.println("sorted----------------------------");
