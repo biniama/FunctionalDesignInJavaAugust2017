@@ -50,12 +50,20 @@ public class Car {
   private static class CarOrderByNameComparator implements Comparator<Car> {
     @Override
     public int compare(Car o1, Car o2) {
-      return o1.getMake().compareTo(o2.getMake());
+      return o1.make.compareTo(o2.make);
     }
   }
 
+  // "normal" lifetime of method local arguments and variables, is the invocation-time
+  // of the function.
+  // match argument must be final, or "effectively final"
+  public static Criterion<Car> getColorCriterion(final Color match)  {
+//    match = Color.GRAY;
+    return c -> c.color.equals(match);
+  }
+  
   public static CarCriterion getBlueCarCriterion()  {
-    return c -> c.getColor().equals(Color.BLUE);
+    return c -> c.color.equals(Color.BLUE);
   }
   
 //  static class BlueCarCriterion implements CarCriterion {
