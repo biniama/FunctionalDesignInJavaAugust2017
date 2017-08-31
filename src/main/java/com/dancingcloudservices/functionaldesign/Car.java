@@ -74,7 +74,7 @@ public class Car {
 //  }
 
   // Unique to single argument behaviors, parentheses are optional
-  private static final CarCriterion mainFrontCriterion = c -> c.getPermits().contains("Main-Front");
+  private static final Criterion<Car> mainFrontCriterion = c -> c.getPermits().contains("Main-Front");
 
 //  private static final CarCriterion mainFrontCriterion = (c) -> c.getPermits().contains("Main-Front");
  
@@ -109,7 +109,7 @@ public class Car {
 //    }
 //  } ;
 // 
-  public static CarCriterion getMainFrontCriterion() {
+  public static Criterion<Car> getMainFrontCriterion() {
     return mainFrontCriterion;
   }
 }

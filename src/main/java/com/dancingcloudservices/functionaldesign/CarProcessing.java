@@ -58,6 +58,14 @@ public class CarProcessing {
     return rv;
   }
   
+  public static <E> Criterion<E> and(Criterion<E> first, Criterion<E> second) {
+    return x -> first.test(x) && second.test(x);
+  }
+  
+  public static <E> Criterion<E> or(Criterion<E> first, Criterion<E> second) {
+    return x -> first.test(x) || second.test(x);
+  }
+  
   public static <E> Criterion<E> inverse(Criterion<E> criterion) {
     return s -> !criterion.test(s);
   }
@@ -67,6 +75,7 @@ public class CarProcessing {
         new Car(Color.BLUE, "Ford", "Main-Front", "Main-Rear", "Lot 1-Front"),
         new Car(Color.GREEN, "Ford", "Main-Rear", "Lot 1-Rear"),
         new Car(Color.RED, "Toyota", "Lot 1-Rear", "Main-Rear"),
+        new Car(Color.RED, "GM", "Lot 1-Rear", "Main-Front"),
         new Car(Color.WHITE, "Toyota", "Lot 1-Front"),
         new Car(Color.BLUE, "BMW", "Engineering-Front", "Main-Rear", "Main-Front"),
         new Car(Color.BLACK, "BMW", "Engineering-Rear"),
@@ -95,7 +104,7 @@ public class CarProcessing {
     
     // What if we want all cars that park in Main-Front lot?
     System.out.println("Front-Main by criterion: ---------------------------");
-    fmCars = getCarByCriterion(lc, Car.getMainFrontCriterion());
+    fmCars = getByCriterion(lc, Car.getMainFrontCriterion());
     showAll(fmCars);
 
     // What if we want all cars that park in Main-Front lot?
@@ -125,10 +134,15 @@ public class CarProcessing {
 
    // What if we want all cars that park in Main-Front lot?
     System.out.println("Not-red cars by parameterized criterion and inverse: ---------------------------");
-    Criterion<Car> isNotRed = inverse(Car.getColorCriterion(Color.RED));
+//    Criterion<Car> isNotRed = inverse(Car.getColorCriterion(Color.RED));
+    Criterion<Car> isNotRed = Car.getColorCriterion(Color.RED).inverse();
     
     List<Car> otherColors = getByCriterion(lc, isNotRed);
     showAll(otherColors);
+
+    System.out.println("Red cars with Main-Front permit: ---------------------------");
+    
+    showAll(getByCriterion(lc, Car.getColorCriterion(Color.RED).and(Car.getMainFrontCriterion())));
 
   }
 }
