@@ -57,6 +57,10 @@ public class CarProcessing {
     }
     return rv;
   }
+  
+  public static <E> Criterion<E> inverse(Criterion<E> criterion) {
+    return s -> !criterion.test(s);
+  }
 
   public static void main(String[] args) {
     List<Car> lc = Arrays.asList(
@@ -118,6 +122,13 @@ public class CarProcessing {
     System.out.println("Red cars by parameterized criterion: ---------------------------");
     List<Car> lbc = getByCriterion(lc, Car.getColorCriterion(Color.RED));
     showAll(lbc);
+
+   // What if we want all cars that park in Main-Front lot?
+    System.out.println("Not-red cars by parameterized criterion and inverse: ---------------------------");
+    Criterion<Car> isNotRed = inverse(Car.getColorCriterion(Color.RED));
+    
+    List<Car> otherColors = getByCriterion(lc, isNotRed);
+    showAll(otherColors);
 
   }
 }
