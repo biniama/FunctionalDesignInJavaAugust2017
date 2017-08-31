@@ -3,8 +3,8 @@ package com.dancingcloudservices.functionaldesign;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author Simon Roberts
@@ -122,7 +122,7 @@ public class CarProcessing {
     fmCars = getByCriterion(lc, c -> c.getPermits().contains("Main-Rear"));
     showAll(fmCars);
 
-    List<String> ls = Arrays.asList("Fred", "Jim", "Sheila", "Albert");
+    List<String> ls = new ArrayList<>(Arrays.asList("Fred", "Jim", "Sheila", "Albert"));
     List<String> longStrings = getByCriterion(ls, s->s.length() > 4);
     System.out.println(longStrings);
     showAll(longStrings);
@@ -144,5 +144,16 @@ public class CarProcessing {
     
     showAll(getByCriterion(lc, Car.getColorCriterion(Color.RED).and(Car.getMainFrontCriterion())));
 
+    System.out.println("---------------------------");
+//    ls.replaceAll(x->x.toUpperCase());
+    ls.replaceAll(String::toUpperCase);
+    ls.forEach(System.out::println);
+    
+    System.out.println("---------------------------");
+    Predicate<String> longStringPred = s->s.length() > 4;
+    ls.removeIf(longStringPred.negate());
+    
+//    ls.forEach(x -> System.out.println(x));
+    ls.forEach(System.out::println);
   }
 }
